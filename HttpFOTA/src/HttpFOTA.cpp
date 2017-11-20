@@ -30,11 +30,11 @@ int HttpFOTA::start(DlInfo &info) {
         return -1;
     }
     http.begin(info.url);
-    info.startDownloadCallback();
+    
     int httpCode = http.GET();
 
     if(httpCode > 0 && httpCode == HTTP_CODE_OK) {
-
+        info.startDownloadCallback();
         // get lenght of document (is -1 when Server sends no Content-Length header)
         len = http.getSize();
         total = len;
@@ -77,7 +77,8 @@ int HttpFOTA::start(DlInfo &info) {
         } else {
             info.errorCallback("Flashing init ... failed!");
             ret = -1;
-        } 
+        }
+    info.endDownloadCallback(); 
     }else {
         info.errorCallback("[HTTP] GET... failed!");
         ret -1;
@@ -97,7 +98,7 @@ int HttpFOTA::start(DlInfo &info) {
         info.errorCallback("Download firmware ... failed!");
         ret = -1;
     }
-    info.endDownloadCallback();
+
     return ret;
 }
 
