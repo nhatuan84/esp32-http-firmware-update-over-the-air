@@ -12,7 +12,8 @@ typedef void (*progressCb)(DlState state, int percent);
 typedef void (*errorCb)(char *message);
 
 typedef struct {
-	char *url;
+    char *url;
+    char* caCert;
     char *md5;
     startDownloadCb     startDownloadCallback;
     endDownloadCb       endDownloadCallback;
@@ -27,7 +28,7 @@ class HttpFOTA
 
     HttpFOTA();
     ~HttpFOTA();
-    
+	
     int start(DlInfo &info);
 
 };
