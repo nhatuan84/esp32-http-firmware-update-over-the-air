@@ -26,10 +26,15 @@ int HttpFOTA::start(DlInfo &info) {
     HTTPClient http;
 
     if( info.progressCallback == NULL || info.errorCallback == NULL ||
-        info.startDownloadCallback == NULL || info.endDownloadCallback == NULL ){
+        info.startDownloadCallback == NULL || info.endDownloadCallback == NULL ||
+        info.url == NULL){
         return -1;
     }
-    http.begin(info.url);
+    if(info.caCert != NULL){
+        http.begin(info.url, info.caCert);
+    } else {
+        http.begin(info.url);
+    }
     
     int httpCode = http.GET();
 
