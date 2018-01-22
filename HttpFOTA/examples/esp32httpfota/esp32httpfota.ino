@@ -111,6 +111,7 @@ void loop() {
     case Fota_e:
       DlInfo info;
       info.url = url;
+      info.caCert = NULL;//if only use http then remember to set this to NULL
       info.md5 = md5;
       info.startDownloadCallback =  startDl;
       info.endDownloadCallback =    endDl;
